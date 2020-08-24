@@ -2,19 +2,24 @@ package com.inn.dms.customer.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.inn.dms.billling.model.Billing;
+import com.inn.dms.payments.model.Payment;
 import com.inn.dms.salesman.model.Salesman;
 
 @Entity
@@ -54,6 +59,28 @@ public class Customer implements Serializable {
 	@ManyToOne
     @JoinColumn(name="salesman_id_pk", nullable=false)
 	private Salesman salesman;
+	
+	@OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+	private List<Billing> billing = new ArrayList<Billing>();
+	
+	@OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+	private List<Payment> payments = new ArrayList<Payment>();;
+	
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public List<Billing> getBilling() {
+		return billing;
+	}
+
+	public void setBilling(List<Billing> billing) {
+		this.billing = billing;
+	}
 
 	public Salesman getSalesman() {
 		return salesman;
@@ -122,9 +149,7 @@ public class Customer implements Serializable {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", mobile=" + mobile + ", custArea=" + custArea
-				+ ", creditLimit=" + creditLimit + ", joiningDate=" + joiningDate + ", modifyDate=" + modifyDate + "]";
+				+ ", creditLimit=" + creditLimit + ", joiningDate=" + joiningDate + ", modifyDate=" + modifyDate
+				+ ", salesman=" + salesman + ", billing=" + billing + ", payments=" + payments + "]";
 	}
-	
-	
-
 }

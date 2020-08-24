@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,9 +55,17 @@ public class Salesman implements Serializable {
 	@Column(name = "modifydate")
 	private Date modifyDate;
 	
-	@OneToMany(mappedBy = "salesman")
+	@OneToMany(mappedBy = "salesman",fetch = FetchType.LAZY)
 	private List<Customer> customer = new ArrayList<Customer>();
 	
+	public List<Customer> getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(List<Customer> customer) {
+		this.customer = customer;
+	}
+
 	public long getId() {
 		return id;
 	}

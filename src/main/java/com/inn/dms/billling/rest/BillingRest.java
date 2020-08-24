@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inn.dms.billling.model.Billing;
 import com.inn.dms.billling.service.IBillingService;
 import com.inn.dms.billling.warpper.CustomerMobileWrapper;
-import com.inn.dms.customer.model.Customer;
-import com.inn.dms.customer.service.ICustomerService;
-import com.inn.dms.salesman.wrapper.SalesManMobileWrapper;
 
 @RestController
 public class BillingRest {
@@ -30,7 +27,7 @@ public class BillingRest {
 	 IBillingService iBillingService; 
 	
 	 @PostMapping(path = "/saveBill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<String> saveCustomerDetail(@RequestBody Billing billing, @RequestParam Long mobile)
+	 public ResponseEntity<String> saveBill(@RequestBody Billing billing, @RequestParam Long mobile)
 	{
 		 String oString =iBillingService.save(billing, mobile);
 		if (oString.contains("customer_not_exists"))
