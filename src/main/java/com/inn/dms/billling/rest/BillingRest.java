@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inn.dms.billling.model.Billing;
 import com.inn.dms.billling.service.IBillingService;
-import com.inn.dms.billling.warpper.CustomerMobileWrapper;
+import com.inn.dms.common.warpper.CustomerMobileWrapper;
 
 @RestController
 public class BillingRest {
@@ -29,13 +29,14 @@ public class BillingRest {
 	 @PostMapping(path = "/saveBill", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	 public ResponseEntity<String> saveBill(@RequestBody Billing billing, @RequestParam Long mobile)
 	{
+		 billing.setTransactionType("billing");
 		 String oString =iBillingService.save(billing, mobile);
 		if (oString.contains("customer_not_exists"))
 		 {
 			 return new ResponseEntity<String>("Hi admin, Customer you are trying to map not exists with us"+mobile, HttpStatus.OK);
 		 }else
 		 {	 
-		 return new ResponseEntity<String>("Hi admin, Bill id  "+oString+" is created succesfully", HttpStatus.CREATED);
+		 return new ResponseEntity<String>("Hi admin, Transaction id  "+oString+" is created succesfully", HttpStatus.CREATED);
 		}
 	}
 	 @GetMapping(path = "/findAllCustomerByMobile" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,5 +53,17 @@ public class BillingRest {
 			
 		}
 	 
-	 
+		 @PostMapping(path = "/savePayment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		 public ResponseEntity<String> saveCustomerDetail(@RequestBody Billing billing, @RequestParam Long mobile)
+		{
+			 billing.setTransactionType("payment");
+			 String oString =iBillingService.save(billing, mobile);
+				if (oString.contains("customer_not_exists"))
+				 {
+					 return new ResponseEntity<String>("Hi admin, Customer you are trying to map not exists with us"+mobile, HttpStatus.OK);
+				 }else
+				 {	 
+				 return new ResponseEntity<String>("Hi admin, Transaction id  "+oString+" is created succesfully", HttpStatus.CREATED);
+				}
+		} 
 }

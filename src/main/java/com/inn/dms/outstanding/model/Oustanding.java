@@ -1,6 +1,7 @@
 package com.inn.dms.outstanding.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,8 +33,17 @@ public class Oustanding implements Serializable {
 	@Column(name = "customer_id_audit")
 	private Long custAduitID;
 	
-	@Column(name = "transactiontype")
-	private String transactionType;
+	@Column(name = "transaction_id_audit")
+	private Long transAuditID;
+	
+	@Column(name = "lasttransactiontype")
+	private String lastTransactionType;
+	
+	@Column(name = "lasttransactiondate")
+	private Timestamp lastTransactionDate;
+
+	@Column(name = "lasttransactionamount")
+	private Long lastTransactionAmount;
 
 	public Long getOutstandingAmount() {
 		return outstandingAmount;
@@ -58,18 +68,45 @@ public class Oustanding implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getTransactionType() {
-		return transactionType;
+	
+	public Long getTransAuditID() {
+		return transAuditID;
 	}
 
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
+	public void setTransAuditID(Long transAuditID) {
+		this.transAuditID = transAuditID;
+	}
+
+	
+	public String getLastTransactionType() {
+		return lastTransactionType;
+	}
+
+	public void setLastTransactionType(String lastTransactionType) {
+		this.lastTransactionType = lastTransactionType;
+	}
+
+	public Timestamp getLastTransactionDate() {
+		return lastTransactionDate;
+	}
+
+	public void setLastTransactionDate(Timestamp lastTransactionDate) {
+		this.lastTransactionDate = lastTransactionDate;
+	}
+
+	public Long getLastTransactionAmount() {
+		return lastTransactionAmount;
+	}
+
+	public void setLastTransactionAmount(Long lastTransactionAmount) {
+		this.lastTransactionAmount = lastTransactionAmount;
 	}
 
 	@Override
 	public String toString() {
 		return "Oustanding [id=" + id + ", outstandingAmount=" + outstandingAmount + ", custAduitID=" + custAduitID
-				+ ", transactionType=" + transactionType + "]";
+				+ ", transAuditID=" + transAuditID + ", lastTransactionType=" + lastTransactionType
+				+ ", lastTransactionDate=" + lastTransactionDate + ", lastTransactionAmount=" + lastTransactionAmount
+				+ "]";
 	}
 }

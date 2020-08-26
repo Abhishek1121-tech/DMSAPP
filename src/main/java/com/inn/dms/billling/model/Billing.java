@@ -42,12 +42,15 @@ public class Billing implements Serializable {
 	private String descriptionRemarks;
 	
 	@CreationTimestamp
-	@Column(name = "billingdate")
-	private Timestamp billingDate;
+	@Column(name = "transactionDate")
+	private Timestamp transactionDate;
 	
 	@UpdateTimestamp
-	@Column(name = "modifiedbillingdate")
-	private Timestamp modifiedBillingDate;
+	@Column(name = "modifiedtransactiondate")
+	private Timestamp modifiedTransactionDate;
+	
+	@Column(name = "transactiontype")
+	private String transactionType;
 	
 	@ManyToOne
 	@JoinColumn(name="customer_id_pk", nullable=false)
@@ -87,28 +90,33 @@ public class Billing implements Serializable {
 	}
 
 	public Timestamp getBillingDate() {
-		return billingDate;
+		return transactionDate;
 	}
 
 	public void setBillingDate(Timestamp billingDate) {
-		this.billingDate = billingDate;
+		this.transactionDate = billingDate;
+	}
+	
+	public Timestamp getTransactionDate() {
+		return modifiedTransactionDate;
 	}
 
-	public Timestamp getModifiedBillingDate() {
-		return modifiedBillingDate;
+	public void setTransactionDate(Timestamp transactionDate) {
+		this.modifiedTransactionDate = transactionDate;
 	}
 
-	public void setModifiedBillingDate(Timestamp modifiedBillingDate) {
-		this.modifiedBillingDate = modifiedBillingDate;
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	@Override
 	public String toString() {
 		return "Billing [id=" + id + ", billAmount=" + billAmount + ", descriptionRemarks=" + descriptionRemarks
-				+ ", billingDate=" + billingDate + ", modifiedBillingDate=" + modifiedBillingDate + ", customer="
-				+ customer + "]";
+				+ ", billingDate=" + transactionDate + ", transactionDate=" + modifiedTransactionDate + ", transactionType="
+				+ transactionType + ", customer=" + customer + "]";
 	}
-
-	
-	
 }

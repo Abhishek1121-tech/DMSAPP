@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inn.dms.billling.model.Billing;
+import com.inn.dms.customer.model.Customer;
 import com.inn.dms.outstanding.dao.IOutstandingDao;
 import com.inn.dms.outstanding.model.Oustanding;
 import com.inn.dms.outstanding.service.IOutstandingService;
@@ -24,35 +26,38 @@ public class OutstandingServiceImpl implements IOutstandingService {
 
 	@Override
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
-	public synchronized Oustanding persistOutstandingAmountSync(long id, long amount,String type) {
-		LOGGER.info("hey hurray we are in synchronized block, id {} amount {} type {}",id,amount,type);
-		Integer checkFlagForExistnace = iOutstandingDao.checkCustomerEntryExists(id);
+	public synchronized Oustanding persistOutstandingAmountSync(Customer customer, Billing billing) {
+		LOGGER.info("hey hurray we are in synchronized block, id {} amount {} type {} Timestamp transactionDate {}",customer.getId(),billing.getBillAmount(),billing.getTransactionType(),billing.getTransactionDate());
+		Integer checkFlagForExistnace = iOutstandingDao.checkCustomerEntryExists(customer.getId());
 		Oustanding oustanding = new Oustanding();
 		if (checkFlagForExistnace > 0)
 		{
-			oustanding=iOutstandingDao.getOutstandingAmountCustID(id);
-			if (type.equals("payment"))
+			oustanding=iOutstandingDao.getOutstandingAmountCustID(customer.getId());
+			if (billing.getTransactionType().equals("payment"))
 			{
-				oustanding.setOutstandingAmount(oustanding.getOutstandingAmount()-amount);
-			}else if (type.equals("billing")) {
-				oustanding.setOutstandingAmount(oustanding.getOutstandingAmount()+amount);
+				oustanding.setOutstandingAmount(oustanding.getOutstandingAmount()-billing.getBillAmount());
+			}else if (billing.getTransactionType().equals("billing")) {
+				oustanding.setOutstandingAmount(oustanding.getOutstandingAmount()+billing.getBillAmount());
 			}else
 			{
-				LOGGER.info("No known or Null type specified {}",type);
+				LOGGER.info("No known or Null type specified {}",billing.getTransactionType());
 			}
 		}else {
-			oustanding.setCustAduitID(id);
-			if (type.equals("payment"))
+			oustanding.setCustAduitID(customer.getId());
+			if (billing.getTransactionType().equals("payment"))
 			{
-				oustanding.setOutstandingAmount(0-amount);
-			}else if (type.equals("billing")) {
-				oustanding.setOutstandingAmount(0+amount);
+				oustanding.setOutstandingAmount(0-billing.getBillAmount());
+			}else if (billing.getTransactionType().equals("billing")) {
+				oustanding.setOutstandingAmount(0+billing.getBillAmount());
 			}else
 			{
-				LOGGER.info("No known or Null type specified {}",type);
+				LOGGER.info("No known or Null type specified {}",billing.getTransactionType());
 			}		
 		}
-		oustanding.setTransactionType(type);
+		oustanding.setLastTransactionType(billing.getTransactionType());
+		oustanding.setLastTransactionDate(billing.getTransactionDate());
+		oustanding.setLastTransactionAmount(billing.getBillAmount());
+		oustanding.setTransAuditID(billing.getId());
 		oustanding=iOutstandingDao.save(oustanding);
 		return oustanding;
 		}

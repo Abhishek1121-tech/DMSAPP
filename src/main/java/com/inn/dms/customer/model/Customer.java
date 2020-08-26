@@ -13,15 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.inn.dms.billling.model.Billing;
-import com.inn.dms.outstanding.model.Oustanding;
-import com.inn.dms.payments.model.Payment;
 import com.inn.dms.salesman.model.Salesman;
 
 @Entity
@@ -63,19 +60,6 @@ public class Customer implements Serializable {
 	
 	@OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
 	private List<Billing> billing = new ArrayList<Billing>();
-	
-	@OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
-	private List<Payment> payments = new ArrayList<Payment>();;
-	
-
-	
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
 
 	public List<Billing> getBilling() {
 		return billing;
@@ -153,6 +137,6 @@ public class Customer implements Serializable {
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", mobile=" + mobile + ", custArea=" + custArea
 				+ ", creditLimit=" + creditLimit + ", joiningDate=" + joiningDate + ", modifyDate=" + modifyDate
-				+ ", salesman=" + salesman + ", billing=" + billing + ", payments=" + payments + "]";
+				+ ", salesman=" + salesman + ", billing=" + billing + "]";
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.inn.dms.billling.dao.IBillingDao;
 import com.inn.dms.billling.model.Billing;
 import com.inn.dms.billling.service.IBillingService;
-import com.inn.dms.billling.warpper.CustomerMobileWrapper;
+import com.inn.dms.common.warpper.CustomerMobileWrapper;
 import com.inn.dms.customer.dao.ICustomerDao;
 import com.inn.dms.customer.model.Customer;
 import com.inn.dms.outstanding.dao.IOutstandingDao;
@@ -43,8 +43,9 @@ public class BillingServiceImpl implements IBillingService {
 			billing_save.setBillAmount(billing.getBillAmount());
 			billing_save.setDescriptionRemarks(billing.getDescriptionRemarks());
 			billing_save.setCustomer(customer);
+			billing_save.setTransactionType(billing.getTransactionType());
 			billing=iBillingDao.save(billing_save);
-			Oustanding oustanding=iOutstandingService.persistOutstandingAmountSync(customer.getId(),billing.getBillAmount(),"billing");
+			Oustanding oustanding=iOutstandingService.persistOutstandingAmountSync(customer,billing);
 			return String.valueOf(billing.getId()+" outstanding amount left "+oustanding.getOutstandingAmount());
 		}
 	}

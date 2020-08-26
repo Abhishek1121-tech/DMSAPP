@@ -1,4 +1,4 @@
-package com.inn.dms.billling.warpper;
+package com.inn.dms.common.warpper;
 
 public class CustomerMobileWrapper {
 
