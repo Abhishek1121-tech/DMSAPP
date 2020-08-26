@@ -1,7 +1,7 @@
 package com.inn.dms.payments.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +13,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import com.inn.dms.customer.model.Customer;
 
 @Entity
 @Table(name ="PAYMENT")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Payment implements Serializable {
 
 	/**
@@ -38,11 +41,11 @@ public class Payment implements Serializable {
 	
 	@CreationTimestamp
 	@Column(name = "paymentdate")
-	private Date paymentDate;
+	private Timestamp paymentDate;
 	
 	@UpdateTimestamp
 	@Column(name = "modifiedpaymentdate")
-	private Date modifiedPaymentDate;
+	private Timestamp modifiedPaymentDate;
 
 	@ManyToOne
 	@JoinColumn(name="customer_id_pk", nullable=false)
@@ -59,14 +62,6 @@ public class Payment implements Serializable {
 	public long getPaymentAmount() {
 		return paymentAmount;
 	}
-
-	public Date getModifiedPaymentDate() {
-		return modifiedPaymentDate;
-	}
-
-	public void setModifiedPaymentDate(Date modifiedPaymentDate) {
-		this.modifiedPaymentDate = modifiedPaymentDate;
-	} 
 	
 	public void setPaymentAmount(long paymentAmount) {
 		this.paymentAmount = paymentAmount;
@@ -79,15 +74,6 @@ public class Payment implements Serializable {
 	public void setDescriptionRemarks(String descriptionRemarks) {
 		this.descriptionRemarks = descriptionRemarks;
 	}
-
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
-	}
-
 
 	public Customer getCustomer() {
 		return customer;

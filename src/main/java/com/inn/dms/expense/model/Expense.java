@@ -1,7 +1,7 @@
 package com.inn.dms.expense.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +11,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
 @Table(name = "EXPENSE")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Expense implements Serializable {
 
 	/**
@@ -37,11 +40,11 @@ public class Expense implements Serializable {
 	
 	@CreationTimestamp
 	@Column(name = "expensedate")
-	private Date expenseDate;
+	private Timestamp expenseDate;
 	
 	@UpdateTimestamp
 	@Column(name = "modifiedexpensedate")
-	private Date modifiedExpenseDate;
+	private Timestamp modifiedExpenseDate;
 
 	public long getId() {
 		return id;
@@ -67,31 +70,28 @@ public class Expense implements Serializable {
 		this.descriptionRemarks = descriptionRemarks;
 	}
 
-
-
-	public Date getModifiedExpenseDate() {
-		return modifiedExpenseDate;
-	}
-
-	public void setModifiedExpenseDate(Date modifiedExpenseDate) {
-		this.modifiedExpenseDate = modifiedExpenseDate;
-	}
-
-
-	public Date getExpenseDate() {
-		return expenseDate;
-	}
-
-	public void setExpenseDate(Date expenseDate) {
-		this.expenseDate = expenseDate;
-	}
-
 	public String getExpenseType() {
 		return expenseType;
 	}
 
 	public void setExpenseType(String expenseType) {
 		this.expenseType = expenseType;
+	}
+
+	public Timestamp getExpenseDate() {
+		return expenseDate;
+	}
+
+	public void setExpenseDate(Timestamp expenseDate) {
+		this.expenseDate = expenseDate;
+	}
+
+	public Timestamp getModifiedExpenseDate() {
+		return modifiedExpenseDate;
+	}
+
+	public void setModifiedExpenseDate(Timestamp modifiedExpenseDate) {
+		this.modifiedExpenseDate = modifiedExpenseDate;
 	}
 
 	@Override

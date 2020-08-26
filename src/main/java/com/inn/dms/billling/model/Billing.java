@@ -1,7 +1,7 @@
 package com.inn.dms.billling.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +13,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import com.inn.dms.customer.model.Customer;
 
+
 @Entity
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Table(name ="BILLING")
 public class Billing implements Serializable {
 
@@ -39,11 +43,11 @@ public class Billing implements Serializable {
 	
 	@CreationTimestamp
 	@Column(name = "billingdate")
-	private Date billingDate;
+	private Timestamp billingDate;
 	
 	@UpdateTimestamp
 	@Column(name = "modifiedbillingdate")
-	private Date modifiedBillingDate;
+	private Timestamp modifiedBillingDate;
 	
 	@ManyToOne
 	@JoinColumn(name="customer_id_pk", nullable=false)
@@ -73,22 +77,7 @@ public class Billing implements Serializable {
 		this.descriptionRemarks = descriptionRemarks;
 	}
 
-	public Date getBillingDate() {
-		return billingDate;
-	}
-
-	public void setBillingDate(Date billingDate) {
-		this.billingDate = billingDate;
-	}
-
-	public Date getModifiedBillingDate() {
-		return modifiedBillingDate;
-	}
-
-	public void setModifiedBillingDate(Date modifiedBillingDate) {
-		this.modifiedBillingDate = modifiedBillingDate;
-	}
-
+	
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -97,10 +86,29 @@ public class Billing implements Serializable {
 		this.customer = customer;
 	}
 
+	public Timestamp getBillingDate() {
+		return billingDate;
+	}
+
+	public void setBillingDate(Timestamp billingDate) {
+		this.billingDate = billingDate;
+	}
+
+	public Timestamp getModifiedBillingDate() {
+		return modifiedBillingDate;
+	}
+
+	public void setModifiedBillingDate(Timestamp modifiedBillingDate) {
+		this.modifiedBillingDate = modifiedBillingDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Billing [id=" + id + ", billAmount=" + billAmount + ", descriptionRemarks=" + descriptionRemarks
 				+ ", billingDate=" + billingDate + ", modifiedBillingDate=" + modifiedBillingDate + ", customer="
 				+ customer + "]";
 	}
+
+	
+	
 }

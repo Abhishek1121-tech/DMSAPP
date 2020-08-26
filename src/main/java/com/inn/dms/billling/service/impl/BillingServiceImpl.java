@@ -13,7 +13,9 @@ import com.inn.dms.billling.service.IBillingService;
 import com.inn.dms.billling.warpper.CustomerMobileWrapper;
 import com.inn.dms.customer.dao.ICustomerDao;
 import com.inn.dms.customer.model.Customer;
-import com.inn.dms.salesman.model.Salesman;
+import com.inn.dms.outstanding.dao.IOutstandingDao;
+import com.inn.dms.outstanding.model.Oustanding;
+import com.inn.dms.outstanding.service.IOutstandingService;
 
 @Component
 public class BillingServiceImpl implements IBillingService {
@@ -26,23 +28,25 @@ public class BillingServiceImpl implements IBillingService {
 	@Autowired
 	private ICustomerDao iCustomerDao;
 	
+	@Autowired
+	private IOutstandingService iOutstandingService;
+	
 	@Override
 	public String save(Billing billing,Long mobile) {
 		Customer customer = iCustomerDao.getCustomerIdByMobile(mobile);
-		if (customer != null)
+		
+		if (customer == null)
 		{
+			return "customer_not_exists";
+		}else {
 			Billing billing_save = new Billing();
 			billing_save.setBillAmount(billing.getBillAmount());
 			billing_save.setDescriptionRemarks(billing.getDescriptionRemarks());
 			billing_save.setCustomer(customer);
 			billing=iBillingDao.save(billing_save);
-			return String.valueOf(billing.getId());
+			Oustanding oustanding=iOutstandingService.persistOutstandingAmountSync(customer.getId(),billing.getBillAmount(),"billing");
+			return String.valueOf(billing.getId()+" outstanding amount left "+oustanding.getOutstandingAmount());
 		}
-		else
-		{
-			return "customer_not_exists";
-		}
-		
 	}
 
 	@Override

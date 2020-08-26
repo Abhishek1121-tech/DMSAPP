@@ -1,7 +1,7 @@
 package com.inn.dms.salesman.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.NonNull;
 
 import com.inn.dms.customer.model.Customer;
 
@@ -40,7 +39,6 @@ public class Salesman implements Serializable {
 	private String name;
 	
 	@Column(name="mobile")
-	
 	private long mobile;
 	
 	
@@ -49,11 +47,11 @@ public class Salesman implements Serializable {
 	
 	@CreationTimestamp
 	@Column(name = "joiningDate")
-	private Date joiningDate;
+	private Timestamp joiningDate;
 	
 	@UpdateTimestamp
 	@Column(name = "modifydate")
-	private Date modifyDate;
+	private Timestamp modifyDate;
 	
 	@OneToMany(mappedBy = "salesman",fetch = FetchType.LAZY)
 	private List<Customer> customer = new ArrayList<Customer>();
@@ -98,26 +96,25 @@ public class Salesman implements Serializable {
 		this.target = target;
 	}
 
-	public Date getJoiningDate() {
+	public Timestamp getJoiningDate() {
 		return joiningDate;
 	}
 
-	public void setJoiningDate(Date joiningDate) {
+	public void setJoiningDate(Timestamp joiningDate) {
 		this.joiningDate = joiningDate;
 	}
 
-	public Date getModifyDate() {
+	public Timestamp getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(Date modifyDate) {
+	public void setModifyDate(Timestamp modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Salesman [id=" + id + ", name=" + name + ", mobile=" + mobile + ", target=" + target + ", joiningDate="
-				+ joiningDate + ", modifyDate=" + modifyDate + "]";
+				+ joiningDate + ", modifyDate=" + modifyDate + ", customer=" + customer + "]";
 	}
-
 }

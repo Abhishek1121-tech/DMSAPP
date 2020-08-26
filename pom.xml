@@ -36,6 +36,13 @@
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-envers -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-envers</artifactId>
+    <version>5.4.20.Final</version>
+</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
