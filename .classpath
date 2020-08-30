@@ -4,6 +4,8 @@
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java|**/application*.yml|**/application*.yaml|**/application*.properties"/>
   <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar" sourcepath="M2_REPO/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar" sourcepath="M2_REPO/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0-sources.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-data-rest/2.3.3.RELEASE/spring-boot-starter-data-rest-2.3.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-web/2.3.3.RELEASE/spring-boot-starter-web-2.3.3.RELEASE.jar"/>
@@ -78,6 +80,12 @@
   <classpathentry kind="var" path="M2_REPO/org/hibernate/validator/hibernate-validator/6.1.5.Final/hibernate-validator-6.1.5.Final.jar"/>
   <classpathentry kind="var" path="M2_REPO/jakarta/validation/jakarta.validation-api/2.0.2/jakarta.validation-api-2.0.2.jar" sourcepath="M2_REPO/jakarta/validation/jakarta.validation-api/2.0.2/jakarta.validation-api-2.0.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-envers/5.4.20.Final/hibernate-envers-5.4.20.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-quartz/2.3.3.RELEASE/spring-boot-starter-quartz-2.3.3.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context-support/5.2.8.RELEASE/spring-context-support-5.2.8.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/quartz-scheduler/quartz/2.3.2/quartz-2.3.2.jar" sourcepath="M2_REPO/org/quartz-scheduler/quartz/2.3.2/quartz-2.3.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/mchange/mchange-commons-java/0.2.15/mchange-commons-java-0.2.15.jar" sourcepath="M2_REPO/com/mchange/mchange-commons-java/0.2.15/mchange-commons-java-0.2.15-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/zaxxer/HikariCP-java7/2.4.13/HikariCP-java7-2.4.13.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/liquibase/liquibase-core/3.8.9/liquibase-core-3.8.9.jar"/>
   <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/8.0.21/mysql-connector-java-8.0.21.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-configuration-processor/2.3.3.RELEASE/spring-boot-configuration-processor-2.3.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar" sourcepath="M2_REPO/org/projectlombok/lombok/1.18.12/lombok-1.18.12-sources.jar"/>

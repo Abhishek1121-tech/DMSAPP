@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inn.dms.billling.dao.IBillingDao;
 import com.inn.dms.billling.model.Billing;
@@ -13,7 +16,6 @@ import com.inn.dms.billling.service.IBillingService;
 import com.inn.dms.common.warpper.CustomerMobileWrapper;
 import com.inn.dms.customer.dao.ICustomerDao;
 import com.inn.dms.customer.model.Customer;
-import com.inn.dms.outstanding.dao.IOutstandingDao;
 import com.inn.dms.outstanding.model.Oustanding;
 import com.inn.dms.outstanding.service.IOutstandingService;
 
@@ -32,6 +34,7 @@ public class BillingServiceImpl implements IBillingService {
 	private IOutstandingService iOutstandingService;
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public String save(Billing billing,Long mobile) {
 		Customer customer = iCustomerDao.getCustomerIdByMobile(mobile);
 		
@@ -52,13 +55,11 @@ public class BillingServiceImpl implements IBillingService {
 
 	@Override
 	public List<CustomerMobileWrapper> findAllCustomerByMobile() {
-		// TODO Auto-generated method stub
 		return iCustomerDao.getCustomerIdByMobile();
 	}
 
 	@Override
 	public List<CustomerMobileWrapper> searchCustomerByMobile(Long mobile) {
-		// TODO Auto-generated method stub
 		LOGGER.info("Mobile Number search text {}",mobile);
 		return iCustomerDao.searchCustomerIdByMobile(mobile);
 	}

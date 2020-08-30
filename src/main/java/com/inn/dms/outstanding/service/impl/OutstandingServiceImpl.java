@@ -25,7 +25,6 @@ public class OutstandingServiceImpl implements IOutstandingService {
 	private IOutstandingDao iOutstandingDao;
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
 	public synchronized Oustanding persistOutstandingAmountSync(Customer customer, Billing billing) {
 		LOGGER.info("hey hurray we are in synchronized block, id {} amount {} type {} Timestamp transactionDate {}",customer.getId(),billing.getBillAmount(),billing.getTransactionType(),billing.getTransactionDate());
 		Integer checkFlagForExistnace = iOutstandingDao.checkCustomerEntryExists(customer.getId());
