@@ -50,6 +50,11 @@ public class SalesmanServiceImpl implements ISalesmanService {
 		// TODO Auto-generated method stub
 		return iSalesManDao.searchSalesmanIdByMobile(mobile);
 	}
+
+	@Override
+	public List<Salesman> findAll() {
+		return iSalesManDao.findAll();
+	}
 	
 	
 }

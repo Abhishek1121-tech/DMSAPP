@@ -53,7 +53,7 @@ public class Salesman implements Serializable {
 	@Column(name = "modifydate")
 	private Timestamp modifyDate;
 	
-	@OneToMany(mappedBy = "salesman",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "salesman")
 	private List<Customer> customer = new ArrayList<Customer>();
 	
 	public List<Customer> getCustomer() {

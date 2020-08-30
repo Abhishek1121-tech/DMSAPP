@@ -10,5 +10,6 @@ public interface ISalesmanService {
 	public String save(Salesman salesman);
 	public List<SalesManMobileWrapper> findAllSalesmanByMobile();
 	public List<Long> searchSalesmanByMobile(Long mobile);
+	public List<Salesman> findAll();
 	
 }

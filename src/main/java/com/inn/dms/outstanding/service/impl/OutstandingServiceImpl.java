@@ -2,6 +2,8 @@ package com.inn.dms.outstanding.service.impl;
 
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.inn.dms.customer.model.Customer;
 import com.inn.dms.outstanding.dao.IOutstandingDao;
 import com.inn.dms.outstanding.model.Oustanding;
 import com.inn.dms.outstanding.service.IOutstandingService;
+import com.inn.dms.report.wrapper.OutsatndingCustomerWrapper;
 
 @Component
 public class OutstandingServiceImpl implements IOutstandingService {
@@ -60,4 +63,16 @@ public class OutstandingServiceImpl implements IOutstandingService {
 		oustanding=iOutstandingDao.save(oustanding);
 		return oustanding;
 		}
+
+	@Override
+	public List<Oustanding> findAll() {
+		return iOutstandingDao.findAll();
+	}
+
+	@Override
+	public List<OutsatndingCustomerWrapper> getOutstandingwithCustomer() {
+		return iOutstandingDao.getOutstandingwithCustomer();
+	}
+	
+	
 	}

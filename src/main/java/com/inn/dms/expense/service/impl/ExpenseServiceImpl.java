@@ -1,5 +1,7 @@
 package com.inn.dms.expense.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,12 @@ public class ExpenseServiceImpl implements IExpenseService {
 		expense_save.setDescriptionRemarks(expense.getDescriptionRemarks());
 		expense=iExpenseDao.save(expense_save);
 		return String.valueOf(expense.getId());
+	}
+
+	@Override
+	public List<Expense> findAll() {
+		// TODO Auto-generated method stub
+		return iExpenseDao.findAll();
 	}
 
 }

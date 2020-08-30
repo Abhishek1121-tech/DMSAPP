@@ -1,5 +1,8 @@
 package com.inn.dms.customer.service.impl;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		{
 			return "salesman_not_exists";
 		}
+	}
+	@Override
+	public List<Customer> findAll() {
+		// TODO Auto-generated method stub
+		return iCustomerDao.findAll();
 	}
 
 

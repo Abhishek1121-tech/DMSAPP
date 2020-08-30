@@ -18,6 +18,7 @@ import com.inn.dms.customer.dao.ICustomerDao;
 import com.inn.dms.customer.model.Customer;
 import com.inn.dms.outstanding.model.Oustanding;
 import com.inn.dms.outstanding.service.IOutstandingService;
+import com.inn.dms.report.wrapper.SalesmansalesWrapper;
 
 @Component
 public class BillingServiceImpl implements IBillingService {
@@ -62,6 +63,11 @@ public class BillingServiceImpl implements IBillingService {
 	public List<CustomerMobileWrapper> searchCustomerByMobile(Long mobile) {
 		LOGGER.info("Mobile Number search text {}",mobile);
 		return iCustomerDao.searchCustomerIdByMobile(mobile);
+	}
+
+	@Override
+	public List<SalesmansalesWrapper> findAllByCustomerNSalesman() {
+		return iBillingDao.findAllByCustomerNSalesman();
 	}
 
 }

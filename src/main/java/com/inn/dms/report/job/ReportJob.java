@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inn.dms.report.service.IReportGenerationService;
-import com.inn.dms.report.service.impl.ReportGenerationServiceImpl;
 
 public class ReportJob implements Job {
 
@@ -18,7 +17,7 @@ public class ReportJob implements Job {
 	private IReportGenerationService iReportService;
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		// TODO Auto-generated method stub
+		LOGGER.info("Inside execute going to executeRequestedReportCreation method");
 		iReportService.executeRequestedReportCreation();
 		
 	}

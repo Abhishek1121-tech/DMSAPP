@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -58,7 +57,7 @@ public class Customer implements Serializable {
     @JoinColumn(name="salesman_id_pk", nullable=false)
 	private Salesman salesman;
 	
-	@OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "customer")
 	private List<Billing> billing = new ArrayList<Billing>();
 
 	public List<Billing> getBilling() {
@@ -138,5 +137,10 @@ public class Customer implements Serializable {
 		return "Customer [id=" + id + ", name=" + name + ", mobile=" + mobile + ", custArea=" + custArea
 				+ ", creditLimit=" + creditLimit + ", joiningDate=" + joiningDate + ", modifyDate=" + modifyDate
 				+ ", salesman=" + salesman + ", billing=" + billing + "]";
+	}
+	
+	public String toStringReportWithSalesmanId() {
+		return "Customer [CUSTOMER ID=" + id + ", NAME=" + name + ", MOBILE=" + mobile + ", CUSTOMER AREA=" + custArea
+				+ ", CREDIT LIMIT=" + creditLimit + ", JOINING DATE=" + joiningDate + ", SALESMAN ID=" + salesman.getId() + "]";
 	}
 }
