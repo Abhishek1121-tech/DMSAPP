@@ -96,7 +96,7 @@ public class ReportMultiThreadedInstnace implements Runnable{
 
 	private void generateReportSalesmanSale(IBillingService retrieveService, ReportEntry reportEntry) {
 		LOGGER.info("reportName {} reportSelection {}",reportEntry.getReportName(),reportEntry.getReportSelectionType());
-		Object[] headerList=new Object[] {"BILLING ID", "BILLING AMOUNT", "REMARKS","TRANSACTION DATE","TRANSACTION TYPE","CUSTOMER ID","SALESMAN ID"};
+		Object[] headerList=new Object[] {"BILLING ID", "BILLING AMOUNT", "REMARKS","TRANSACTION DATE","TRANSACTION TYPE","CUSTOMER NAME","CUSTOMER MOBILE","SALESMAN NAME","SALESMAN MOBILE"};
 		Map<String, Object[]> data =new TreeMap<String, Object[]>();
 		int rowNum=0;
 		rowNum++;
@@ -108,7 +108,12 @@ public class ReportMultiThreadedInstnace implements Runnable{
 			for (SalesmansalesWrapper salesmansalesWrapper: listObject)
 			{
 				rowNum++;
-				data.put(String.valueOf(rowNum), new Object[] {salesmansalesWrapper.getBilling().getId(),salesmansalesWrapper.getBilling().getBillAmount(),salesmansalesWrapper.getBilling().getDescriptionRemarks(),salesmansalesWrapper.getBilling().getTransactionDate(),salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getId(),salesmansalesWrapper.getSalesman_id_pk()});
+				data.put(String.valueOf(rowNum),
+						new Object[] { salesmansalesWrapper.getBilling().getId(),
+								salesmansalesWrapper.getBilling().getBillAmount(),
+								salesmansalesWrapper.getBilling().getDescriptionRemarks(),
+								salesmansalesWrapper.getBilling().getTransactionDate(),
+								salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getName(),salesmansalesWrapper.getBilling().getCustomer().getMobile(),salesmansalesWrapper.getSalesman().getName(),salesmansalesWrapper.getSalesman().getName()});
 			}	
 			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Expense", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {

@@ -61,21 +61,11 @@ public class Reportutils {
 		XSSFRow row = null;
 
 		if (object instanceof List<?>) {
-			if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof Customer)){
+			if(((List<?>)object).size()>0){
 			persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-			}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof Salesman)){
-				persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-				}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof Billing)){
-					persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-					}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof Oustanding)){
-						persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-					}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof Expense)){
-						persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-					}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof SalesmansalesWrapper)){
-						persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-					}else if(((List<?>)object).size()>0 && (((List<?>)object).get(0) instanceof OutsatndingCustomerWrapper)){
-						persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-					}
+			}else {
+				LOGGER.info("List is empty for Report Object");
+			}
 		}
 
 	}
