@@ -115,9 +115,21 @@ public class ReportMultiThreadedInstnace implements Runnable{
 								salesmansalesWrapper.getBilling().getTransactionDate(),
 								salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getName(),salesmansalesWrapper.getBilling().getCustomer().getMobile(),salesmansalesWrapper.getSalesman().getName(),salesmansalesWrapper.getSalesman().getMobile()});
 			}	
-			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Expense", data);
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Salesman Sale", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
 			
+			List<SalesmansalesWrapper> listObject =retrieveService.findAllByCustomerNSalesman(this.reportEntry.getReportStartRangeTimestampInMs(), this.reportEntry.getReportEndRangeTimestampInMs());
+			for (SalesmansalesWrapper salesmansalesWrapper: listObject)
+			{
+				rowNum++;
+				data.put(String.valueOf(rowNum),
+						new Object[] { salesmansalesWrapper.getBilling().getId(),
+								salesmansalesWrapper.getBilling().getBillAmount(),
+								salesmansalesWrapper.getBilling().getDescriptionRemarks(),
+								salesmansalesWrapper.getBilling().getTransactionDate(),
+								salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getName(),salesmansalesWrapper.getBilling().getCustomer().getMobile(),salesmansalesWrapper.getSalesman().getName(),salesmansalesWrapper.getSalesman().getMobile()});
+			}	
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Salesman Sale", data);
 		}else {
 			LOGGER.info("No Selection Type matched");
 		}
@@ -140,11 +152,19 @@ public class ReportMultiThreadedInstnace implements Runnable{
 				data.put(String.valueOf(rowNum), new Object[] {outsatndingCustomerWrapper.getOustanding().getId(),outsatndingCustomerWrapper.getCustomer().getName(),outsatndingCustomerWrapper.getCustomer().getMobile(),outsatndingCustomerWrapper.getOustanding().getOutstandingAmount(),outsatndingCustomerWrapper.getOustanding().getLastTransactionDate(),outsatndingCustomerWrapper.getOustanding().getLastTransactionAmount(),outsatndingCustomerWrapper.getOustanding().getLastTransactionType()});
 			}	
 		
-			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Outstanding", data);	
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Outstanding", data);	
 				
 			
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
 			
+			List<OutsatndingCustomerWrapper> listObject =retrieveService.getOutstandingwithCustomer(this.reportEntry.getReportStartRangeTimestampInMs(),this.reportEntry.getReportEndRangeTimestampInMs());
+			for (OutsatndingCustomerWrapper outsatndingCustomerWrapper : listObject)
+			{
+				rowNum++;
+				data.put(String.valueOf(rowNum), new Object[] {outsatndingCustomerWrapper.getOustanding().getId(),outsatndingCustomerWrapper.getCustomer().getName(),outsatndingCustomerWrapper.getCustomer().getMobile(),outsatndingCustomerWrapper.getOustanding().getOutstandingAmount(),outsatndingCustomerWrapper.getOustanding().getLastTransactionDate(),outsatndingCustomerWrapper.getOustanding().getLastTransactionAmount(),outsatndingCustomerWrapper.getOustanding().getLastTransactionType()});
+			}	
+		
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Outstanding", data);
 		}else {
 			LOGGER.info("No Selection Type matched");
 		}		
@@ -166,7 +186,7 @@ public class ReportMultiThreadedInstnace implements Runnable{
 				rowNum++;
 				data.put(String.valueOf(rowNum), new Object[] {salesman.getId(),salesman.getName(),salesman.getMobile(),salesman.getJoiningDate(),salesman.getTarget()});
 			}	
-			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Expense", data);
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Expense", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
 			
 		}else {
@@ -177,7 +197,7 @@ public class ReportMultiThreadedInstnace implements Runnable{
 
 	private void generateReportCustomer(ICustomerService retrieveService, ReportEntry reportEntry) {
 		LOGGER.info("reportName {} reportSelection {}",reportEntry.getReportName(),reportEntry.getReportSelectionType());
-		Object[] headerList=new Object[] {"CUSTOMER ID", "NAME", "MOBILE","AREA","JOINING DATE","CREDIT LIMIT","SALESMAN ID"};
+		Object[] headerList=new Object[] {"CUSTOMER ID", "NAME", "MOBILE","AREA","JOINING DATE","CREDIT LIMIT","SALESMAN NAME","SALESMAN MOBILE"};
 		Map<String, Object[]> data =new TreeMap<String, Object[]>();
 		int rowNum=0;
 		rowNum++;
@@ -189,9 +209,9 @@ public class ReportMultiThreadedInstnace implements Runnable{
 			for (Customer customer : listObject)
 			{
 				rowNum++;
-				data.put(String.valueOf(rowNum), new Object[] {customer.getId(),customer.getName(),customer.getMobile(),customer.getCustArea(),customer.getJoiningDate(),customer.getCreditLimit(),customer.getSalesman().getId()});
+				data.put(String.valueOf(rowNum), new Object[] {customer.getId(),customer.getName(),customer.getMobile(),customer.getCustArea(),customer.getJoiningDate(),customer.getCreditLimit(),customer.getSalesman().getName(),customer.getSalesman().getMobile()});
 			}	
-			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Customer", data);
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Customer", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
 			
 		}else {
@@ -216,24 +236,37 @@ public class ReportMultiThreadedInstnace implements Runnable{
 				rowNum++;
 				data.put(String.valueOf(rowNum), new Object[] {expense.getId(),expense.getExpenseAmount(),expense.getExpenseType(),expense.getExpenseDate(),expense.getDescriptionRemarks()});
 			}	
-			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Expense", data);
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Expense", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
-			
+			List<Expense> listObject =retrieveService.findAllByRange(reportEntry.getReportStartRangeTimestampInMs(), reportEntry.getReportEndRangeTimestampInMs());
+			for (Expense expense : listObject)
+			{
+				rowNum++;
+				data.put(String.valueOf(rowNum), new Object[] {expense.getId(),expense.getExpenseAmount(),expense.getExpenseType(),expense.getExpenseDate(),expense.getDescriptionRemarks()});
+			}	
+			handlingExceptionForReportCreation(listObject, this.reportEntry, "Expense", data);
 		}else {
 			LOGGER.info("No Selection Type matched");
 		}
 		
 	}
 	
-	public void handlingExceptionForFailedReportCreation(Collection<? extends Object> object, ReportEntry reportEntry,
+	public void handlingExceptionForReportCreation(Collection<? extends Object> object, ReportEntry reportEntry,
 			String sheetName,Map<String, Object[]> data) {
 		try {
 			Date date = new Date();
 			String pathToBeCreated=Reportutils.FORWARD_SLASH+Reportutils.REPORT_URL_BASE_PATH_PREFFIX+Reportutils.FORWARD_SLASH+reportEntry.getReportType()+Reportutils.FORWARD_SLASH+new Timestamp(date.getTime()).getTime()+Reportutils.FORWARD_SLASH;
-			Reportutils.createDirectoryIfNotExist(Reportutils.REPORT_URL_BASE_PATH+pathToBeCreated);
-			reportEntry.setReportDownloadURL(pathToBeCreated+reportEntry.getReportName()+Reportutils.DOT+Reportutils.XLSX_EXT);
-			Reportutils.convertObjectToExcelFile(object, this.reportEntry, sheetName, data);
-			reportEntry.setReportStatus(Reportutils.CONST_COMPLETED);
+		
+			if (object.size()>0)
+			{
+			    Reportutils.createDirectoryIfNotExist(Reportutils.REPORT_URL_BASE_PATH+pathToBeCreated);
+				reportEntry.setReportDownloadURL(pathToBeCreated+reportEntry.getReportName()+Reportutils.DOT+Reportutils.XLSX_EXT);
+				Reportutils.convertObjectToExcelFile(object, this.reportEntry, sheetName, data);
+				reportEntry.setReportStatus(Reportutils.CONST_COMPLETED);
+			}else {
+				LOGGER.info("List is empty for Report Object");
+				reportEntry.setReportStatus(Reportutils.EMPTY_REPORT);
+			}			
 			this.reportEntry=iReportDao.save(reportEntry);
 			LOGGER.info("Report Generation succeeded Report Name {},",this.reportEntry.getReportName());
 		} catch (IOException e) {

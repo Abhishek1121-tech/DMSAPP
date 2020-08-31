@@ -1,5 +1,6 @@
 package com.inn.dms.billling.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.inn.dms.billling.model.Billing;
@@ -12,5 +13,6 @@ public interface IBillingService {
 	public List<CustomerMobileWrapper> findAllCustomerByMobile();
 	public List<CustomerMobileWrapper> searchCustomerByMobile(Long mobile);
 	public List<SalesmansalesWrapper> findAllByCustomerNSalesman();
+	public List<SalesmansalesWrapper> findAllByCustomerNSalesman(Timestamp starTimestamp, Timestamp endTimestamp);
 
 }

@@ -1,5 +1,6 @@
 package com.inn.dms.outstanding.service	;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.inn.dms.billling.model.Billing;
@@ -13,5 +14,7 @@ public interface IOutstandingService {
 
 	public List<Oustanding> findAll();
 	public List<OutsatndingCustomerWrapper> getOutstandingwithCustomer();
+
+	List<OutsatndingCustomerWrapper> getOutstandingwithCustomer(Timestamp starTimestamp, Timestamp endTimestamp);
 
 }

@@ -2,6 +2,8 @@ package com.inn.dms.outstanding.service.impl;
 
 
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -74,5 +76,9 @@ public class OutstandingServiceImpl implements IOutstandingService {
 		return iOutstandingDao.getOutstandingwithCustomer();
 	}
 	
+	@Override
+	public List<OutsatndingCustomerWrapper> getOutstandingwithCustomer(Timestamp starTimestamp, Timestamp endTimestamp) {
+		return iOutstandingDao.getOutstandingwithCustomer(new Date(starTimestamp.getTime()) ,new Date(endTimestamp.getTime()));
+	}
 	
 	}

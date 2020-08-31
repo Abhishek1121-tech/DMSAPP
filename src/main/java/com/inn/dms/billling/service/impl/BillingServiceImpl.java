@@ -1,5 +1,7 @@
 package com.inn.dms.billling.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -68,6 +70,12 @@ public class BillingServiceImpl implements IBillingService {
 	@Override
 	public List<SalesmansalesWrapper> findAllByCustomerNSalesman() {
 		return iBillingDao.findAllByCustomerNSalesman();
+	}
+
+	@Override
+	public List<SalesmansalesWrapper> findAllByCustomerNSalesman(Timestamp starTimestamp, Timestamp endTimestamp) {
+		// TODO Auto-generated method stub
+		return iBillingDao.findAllByCustomerNSalesman(new Date(starTimestamp.getTime()) ,new Date(endTimestamp.getTime()));
 	}
 
 }

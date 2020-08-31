@@ -1,5 +1,7 @@
 package com.inn.dms.expense.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,10 @@ public class ExpenseServiceImpl implements IExpenseService {
 		// TODO Auto-generated method stub
 		return iExpenseDao.findAll();
 	}
-
+	
+	@Override
+	public List<Expense> findAllByRange(Timestamp starTimestamp,Timestamp endTimestamp) {
+		// TODO Auto-generated method stub
+		return iExpenseDao.findAllByRange(new Date(starTimestamp.getTime()) ,new Date(endTimestamp.getTime()));
+	}
 }

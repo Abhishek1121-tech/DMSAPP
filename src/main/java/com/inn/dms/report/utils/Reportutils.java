@@ -52,6 +52,8 @@ public class Reportutils {
 	public static String FORWARD_SLASH="/";
 	public static String DOT=".";
 	public static String XLSX_EXT="xlsx";
+	
+	public static String EMPTY_REPORT="EMPTY_REPORT";
 
 	public static void convertObjectToExcelFile(Collection<? extends Object> object, ReportEntry reportEntry,
 			String sheetName,Map<String, Object[]> data) throws IOException {
@@ -61,11 +63,9 @@ public class Reportutils {
 		XSSFRow row = null;
 
 		if (object instanceof List<?>) {
-			if(((List<?>)object).size()>0){
+			
 			persistSaveFileReporting(workbook, spreadsheet, row, data,reportEntry);
-			}else {
-				LOGGER.info("List is empty for Report Object");
-			}
+			
 		}
 
 	}
