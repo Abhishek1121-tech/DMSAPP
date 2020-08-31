@@ -113,7 +113,7 @@ public class ReportMultiThreadedInstnace implements Runnable{
 								salesmansalesWrapper.getBilling().getBillAmount(),
 								salesmansalesWrapper.getBilling().getDescriptionRemarks(),
 								salesmansalesWrapper.getBilling().getTransactionDate(),
-								salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getName(),salesmansalesWrapper.getBilling().getCustomer().getMobile(),salesmansalesWrapper.getSalesman().getName(),salesmansalesWrapper.getSalesman().getName()});
+								salesmansalesWrapper.getBilling().getTransactionType(),salesmansalesWrapper.getBilling().getCustomer().getName(),salesmansalesWrapper.getBilling().getCustomer().getMobile(),salesmansalesWrapper.getSalesman().getName(),salesmansalesWrapper.getSalesman().getMobile()});
 			}	
 			handlingExceptionForFailedReportCreation(listObject, this.reportEntry, "Expense", data);
 		}else if (reportEntry.getReportSelectionType().equals(Reportutils.DATE_RANGE_SELECTION)) {
