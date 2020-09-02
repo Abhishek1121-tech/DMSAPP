@@ -24,7 +24,7 @@ public class ConfigureJob {
         return TriggerBuilder.newTrigger().forJob(jobADetails)
 
                 .withIdentity("ReportCreationTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * ? * *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * ? * *"))
                 .build();
     }
 }
